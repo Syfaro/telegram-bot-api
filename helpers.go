@@ -25,6 +25,21 @@ func NewMessage(chatID int64, text string) MessageConfig {
 	}
 }
 
+// NewTopicMessage creates a new Message which will be sent to a topic thread.
+//
+// chatID is where to send it, topicID is the topic thread id, text is the message text.
+func NewTopicMessage(chatID int64, topicID int, text string) MessageConfig {
+	return MessageConfig{
+		BaseChat: BaseChat{
+			ChatID:           chatID,
+			ThreadID:         topicID,
+			ReplyToMessageID: 0,
+		},
+		Text:                  text,
+		DisableWebPagePreview: false,
+	}
+}
+
 // NewDeleteMessage creates a request to delete a message.
 func NewDeleteMessage(chatID int64, messageID int) DeleteMessageConfig {
 	return DeleteMessageConfig{

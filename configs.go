@@ -265,6 +265,7 @@ func (CloseConfig) params() (Params, error) {
 // BaseChat is base type for all chat config types.
 type BaseChat struct {
 	ChatID                   int64 // required
+	ThreadID                 int   // optional
 	ChannelUsername          string
 	ProtectContent           bool
 	ReplyToMessageID         int
@@ -278,6 +279,7 @@ func (chat *BaseChat) params() (Params, error) {
 
 	params.AddFirstValid("chat_id", chat.ChatID, chat.ChannelUsername)
 	params.AddNonZero("reply_to_message_id", chat.ReplyToMessageID)
+	params.AddNonZero("message_thread_id", chat.ThreadID)
 	params.AddBool("disable_notification", chat.DisableNotification)
 	params.AddBool("allow_sending_without_reply", chat.AllowSendingWithoutReply)
 	params.AddBool("protect_content", chat.ProtectContent)
