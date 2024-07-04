@@ -1,0 +1,23 @@
+print('Bot:", response)
+await update.message.reply_text(response)
+
+async def error (update: Update, context: ContextTypes.DEFAULT_TYPE):
+print(f"Update f(update) caused error (context.error)')
+
+if _name_ '_main_:
+app = Application.builder().token(6641412153:AAGOKEE1n8GhEBuPcS1qZepp_iHnQa53Mag).build()
+
+#Commands
+app.add_handler(CommandHandler('start',start_command))
+app.add_handler(CommandHandler('help',help_command))
+app.add_handler(CommandHandler('costum',costum_command))
+
+#Messages
+app.add_handler(MessageHandler(Filter,Text,handler_message))
+
+#Error
+app.add.error.handler(error)
+
+#Pull the bot
+print('Pulling....')
+app.run_pulling(pull_interval=5)
