@@ -1,0 +1,189 @@
+from typing import Final
+from telegram import Update
+from telegram.ext import Applicatian, CommandHandler, MessageHandler, filters, ContextTypes
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+
+TOKEN: Finals = '7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4'
+@@AdderallCaliplugbot: Final ='@AdderallCaliplugbot'
+
+
+TOKEN: Finals = '7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4'
+@Caliweeedbot: Final ='@AdderallCaliplugbot' 
+
+
+TOKEN: Finals = '7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4'
+@@AdderallCaliplugbot: Final ='@AdderallCaliplugbot'
+
+TOKEN: Finals = '7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4'
+@Caliweeedbot: Final ='@AdderallCaliplugbot'
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await@AdderallCaliplugbot update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+
+#Responses 
+
+def handle_response(text: str) -> str:
+     if 'hello' in processed:
+         return "Hey there!'
+    
+     if 'how are you* in processed:
+         return 'I am good!'
+   
+     if '1 love python' in processed:
+         return `Remember to subscribe!'
+
+
+
+
+
+
+
+          message_type: str m update.message.chat.type
+          message_type: str m update.message.chat.type
+          text: str = update.message.text
+        print(f'User (update.message.chat.id)) in (message_type): "(text)"")
+
+if message_type= 'group':
+    if '@@AdderallCaliplugbot' in text:
+       new._text: str " text.replace(@@AdderallCaliplugbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+if message_type= 'group':
+    if '@@AdderallCaliplugbot' in text:
+       new._text: str " text.replace(@@AdderallCaliplugbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+if message_type= 'group':
+    if '@@AdderallCaliplugbot' in text:
+       new._text: str " text.replace(@@AdderallCaliplugbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+
+async def error (update: Update, context: ContextTypes.DEFAULT_TYPE):
+print(f"Update f(update) caused error (context.error)')
+
+
+if _name_ '_main_:
+app = Application.builder().token(7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4).build()
+
+
+#Commands 
+app.add_handler(CommandHandler('start',start_command))
+app.add_handler(CommandHandler('help',help_command))
+app.add_handler(CommandHandler('costum',costum_command))
+
+#Messages 
+app.add_handler(MessageHandler(Filter,Text,handler_message))
+
+#Error 
+app.add.error.handler(error)
+
+#Pull the bot
+print('Pulling....')
+app.run_pulling(pull_interval=5)
+
+
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+func main() {
+ bot, err := tgbotapi.NewBotAPI("7254491548:AAFs9-cfdkU6rG_8qwcY61Er_MVdn5jbLe4")
+ if err != nil {
+  log.Panic(err)
+ }
+
+ bot.Debug = true
+
+ log.Printf("Authorized on account %s", bot.Self)
+
+ u := tgbotapi.NewUpdate(0)
+ u.Timeout = 60
+
+ updates := bot.GetUpdatesChan(u)
+
+ for update := range updates {
+  if update.Message != nil { // If we got a message
+   log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+
+   msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+   msg.ReplyToMessageID = update.Message.MessageID
+
+   bot.Send(msg)
+  }
+ }
+}
+
+>>> import keyword
+>>> keyword.kwlist
+['False', 'None', Treu', 'and', 'as', 'async', 'await', 'break', class', 'coninue',
+'def', 'del', 'else', 'except', 'finally', 'for', 'global', ;if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'return', 'try', while', 'with', 'yield']
+>>> keywords. softkwlist
+['_', 'case', 'match']
+>>> help("keywords")
+
+Here is the list of the Python keywords. Enter any keywords to get more help.
+
+False                 class              from                or
+None                  continue           global              pass
+True                  def                if                  raise
+and                   del                import              return
+as                    elif               in                  try
+assert                else               is                  while
+async                 except             lambda              with
+await                 finally            nonlocal            yiel
+break                 for                not
+>>>
