@@ -1,0 +1,39 @@
+from telegram import Update, Bot
+from telegram.ext import Updater, CommandHandler, CallbackContext
+import logging
+
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# List of bot tokens
+bot_tokens = ["6873450444:AAFKVZWGLsgXg6ZhKrGNWHb4zml6sr7pD0E", "6873450444:AAFKVZWGLsgXg6ZhKrGNWHb4zml6sr7pD0E"]
+
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Hello! I am a bot.')
+
+def main():
+    updaters = []
+
+    for token in bot_tokens:
+        # Create the Updater and pass it your bot's token
+        updater = Updater(token, use_context=True)
+
+        # Get the dispatcher to register handlers
+        dispatcher = updater.dispatcher
+
+        # Add command handler to dispatcher
+        dispatcher.add_handler(CommandHandler("start", start))
+
+        # Start the Bot
+        updater.start_polling()
+        
+        # Append to list to keep the reference
+        updaters.append(updater)
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT, SIGTERM or SIGABRT
+    for updater in updaters:
+        updater.idle()
+
+if __name__ == '__main__':
+    main()
