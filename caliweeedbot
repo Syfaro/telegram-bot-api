@@ -1,0 +1,168 @@
+from typing import Final
+from telegram import Update
+from telegram.ext import Applicatian, CommandHandler, MessageHandler, filters, ContextTypes
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+
+TOKEN: Finals = '7421714217:AAF3j4PTQ9Knj17LZkRt5IlDDF_pOXe4aMc'
+@Caliweeedbot: Final ='@Caliweeedbot'
+
+
+TOKEN: Finals = '7421714217:AAF3j4PTQ9Knj17LZkRt5IlDDF_pOXe4aMc'
+@Caliweeedbot: Final ='@Caliweeedbot' 
+
+
+TOKEN: Finals = '7421714217:AAF3j4PTQ9Knj17LZkRt5IlDDF_pOXe4aMc'
+@Caliweed: Final ='@Caliweedbot'
+
+TOKEN: Finals = '6641412153:AAGOKEE1n8GhEBuPcS1qZepp_iHnQa53Mag'
+@Caliweeedbot: Final ='@Caliweeedbot'
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await@Caliweeedbot update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+async def start_comand(update: updates, context: contextTypes, DEFAULT_TYPE):
+     await update.message.reply_text("Hello! Thankcs for connecting with me us we are going to get back to you!")
+
+
+
+#Responses 
+
+def handle_response(text: str) -> str:
+     if 'hello' in processed:
+         return "Hey there!'
+    
+     if 'how are you* in processed:
+         return 'I am good!'
+   
+     if '1 love python' in processed:
+         return `Remember to subscribe!'
+
+
+
+
+
+
+
+          message_type: str m update.message.chat.type
+          message_type: str m update.message.chat.type
+          text: str = update.message.text
+        print(f'User (update.message.chat.id)) in (message_type): "(text)"")
+
+if message_type= 'group':
+    if '@Caliweeedbot' in text:
+       new._text: str " text.replace(@Caliweeedbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+if message_type= 'group':
+    if '@Caliplugzaza1bot' in text:
+       new._text: str " text.replace(@Caliweeedbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+if message_type= 'group':
+    if '@Caliweedbot' in text:
+       new._text: str " text.replace(@Caliweeedbot, "').strip()
+       response: str = handle_response(new_text)
+ else:
+   return
+else:
+   response; str = handle_response(text)
+
+print('Bot:", response)
+await update.message.reply_text(response)
+
+
+async def error (update: Update, context: ContextTypes.DEFAULT_TYPE):
+print(f"Update f(update) caused error (context.error)')
+
+
+if _name_ '_main_:
+app = Application.builder().token(7421714217:AAF3j4PTQ9Knj17LZkRt5IlDDF_pOXe4aMc).build()
+
+
+#Commands 
+app.add_handler(CommandHandler('start',start_command))
+app.add_handler(CommandHandler('help',help_command))
+app.add_handler(CommandHandler('costum',costum_command))
+
+#Messages 
+app.add_handler(MessageHandler(Filter,Text,handler_message))
+
+#Error 
+app.add.error.handler(error)
+
+#Pull the bot
+print('Pulling....')
+app.run_pulling(pull_interval=5)
+
+
+
+package main
+
+import (
+ "log"
+
+ tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+)
+
+func main() {
+ bot, err := tgbotapi.NewBotAPI("7421714217:AAF3j4PTQ9Knj17LZkRt5IlDDF_pOXe4aMc")
+ if err != nil {
+  log.Panic(err)
+ }
+
+ bot.Debug = true
+
+ log.Printf("Authorized on account %s", bot.Self)
+
+ u := tgbotapi.NewUpdate(0)
+ u.Timeout = 60
+
+ updates := bot.GetUpdatesChan(u)
+
+ for update := range updates {
+  if update.Message != nil { // If we got a message
+   log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+
+   msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+   msg.ReplyToMessageID = update.Message.MessageID
+
+   bot.Send(msg)
+  }
+ }
+}
