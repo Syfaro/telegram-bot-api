@@ -1,0 +1,14 @@
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+Replace '6873450444:AAFKVZWGLsgXg6ZhKrGNWHb4zml6sr7pD0E' with your actual bot token TOKEN = '6873450444:AAFKVZWGLsgXg6ZhKrGNWHb4zml6sr7pD0E'
+
+Command to start the bot
+def start(update: Update, context: CallbackContext) -> None: update.message.reply_text('Welcome to the Username Keyword Ranking Bot! Please send me a list of usernames.')
+
+Function to handle incoming messages
+def handle_message(update: Update, context: CallbackContext) -> None: message_text = update.message.text
+usernames = message_text.split() # Extract usernames from message
+
+Keywords to rank
+keywords = ['Caliplug', 'Zaza', 'Pharmarcy'] # Replace with your keywords
