@@ -1,0 +1,32 @@
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+TOKEN = "7432557648:AAHeNzfCxT2ZxpI0tciou9UNufdQiASALDM"
+BOT_USERNAME = "Ro+"chi"+"ld"+"Illu"+"minati"
+
+def start_command(update: Update, context: CallbackContext):
+    update.message.reply_text("Hello! I am Rothschild Illuminati bot. How can I assist you today?")
+
+def search_command(update: Update, context: CallbackContext):
+    query = ' '.join(context.args)
+    if not query:
+        update.message.reply_text("Please provide a search query. Usage: /search <query>")
+        return
+    
+    # Perform global search based on the query (you can replace this with your actual search logic)
+    search_results = f"Search results for '{query}' will be displayed here."
+    
+    update.message.reply_text(search_results)
+
+def main():
+    updater = Updater(TOKEN)
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start_command))
+    dispatcher.add_handler(CommandHandler("search", search_command))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == "__main__":
+    main()
