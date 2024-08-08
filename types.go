@@ -634,6 +634,12 @@ type Message struct {
 	//
 	// optional
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
+	// WriteAccessAllowed the user allowed the bot to write messages after adding it
+	//to the attachment or side menu, launching a Web App from a link,
+	//or accepting an explicit request from a Web App sent by the method requestWriteAccess
+	//
+	// optional
+	WriteAccessAllowed *WriteAccessAllowed `json:"write_access_allowed,omitempty"`
 }
 
 // Time converts the message timestamp into a Time.
@@ -812,6 +818,18 @@ func (e MessageEntity) IsPre() bool {
 // IsTextLink returns true if the type of the message entity is "text_link" (clickable text URL).
 func (e MessageEntity) IsTextLink() bool {
 	return e.Type == "text_link"
+}
+
+// WriteAccessAllowed this object represents a service message about a user allowing a
+// bot to write messages after adding it to the attachment menu, launching a Web App from a link,
+// or accepting an explicit request from a Web App sent by the method requestWriteAccess.
+type WriteAccessAllowed struct {
+	// optional
+	FromRequest bool `json:"from_request,omitempty"`
+	// optional
+	WebAppName string `json:"web_app_name,omitempty"`
+	// optional
+	FromAttachmentMenu bool `json:"from_attachment_menu,omitempty"`
 }
 
 // PhotoSize represents one size of a photo or a file / sticker thumbnail.
