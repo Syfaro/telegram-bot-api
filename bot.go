@@ -633,6 +633,23 @@ func (bot *BotAPI) GetInviteLink(config ChatInviteLinkConfig) (string, error) {
 	return inviteLink, err
 }
 
+// CreateInvoiceLink Use this method to create a link for an invoice. Returns the created invoice link as
+// String on success.
+func (bot *BotAPI) CreateInvoiceLink(config InvoiceLinkConfig) (inviteLink string, err error) {
+	var resp *APIResponse
+
+	if resp, err = bot.Request(config); err != nil {
+		return
+	}
+	if !resp.Ok {
+		err = fmt.Errorf("returns error code: %d", resp.ErrorCode)
+		return
+	}
+	err = json.Unmarshal(resp.Result, &inviteLink)
+
+	return
+}
+
 // GetStickerSet returns a StickerSet.
 func (bot *BotAPI) GetStickerSet(config GetStickerSetConfig) (StickerSet, error) {
 	resp, err := bot.Request(config)

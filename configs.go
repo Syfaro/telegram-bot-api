@@ -1784,6 +1784,15 @@ func (config InvoiceConfig) method() string {
 	return "sendInvoice"
 }
 
+// InvoiceLinkConfig contains information for createInvoiceLink request.
+type InvoiceLinkConfig struct {
+	InvoiceConfig
+}
+
+func (config InvoiceLinkConfig) method() string {
+	return "createInvoiceLink"
+}
+
 // ShippingConfig contains information for answerShippingQuery request.
 type ShippingConfig struct {
 	ShippingQueryID string // required

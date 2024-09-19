@@ -777,6 +777,11 @@ func NewInvoice(chatID int64, title, description, payload, providerToken, startP
 		Prices:         prices}
 }
 
+// NewInvoiceLink creates a new InvoiceLink request to the user.
+func NewInvoiceLink(chatID int64, title, description, payload, providerToken, startParameter, currency string, prices []LabeledPrice) InvoiceLinkConfig {
+	return InvoiceLinkConfig{NewInvoice(chatID, title, description, payload, providerToken, startParameter, currency, prices)}
+}
+
 // NewChatTitle allows you to update the title of a chat.
 func NewChatTitle(chatID int64, title string) SetChatTitleConfig {
 	return SetChatTitleConfig{
