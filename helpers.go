@@ -183,6 +183,14 @@ func NewMediaGroup(chatID int64, files []interface{}) MediaGroupConfig {
 	}
 }
 
+// NewBaseInputMedia creates a new BaseInputMedia.
+func NewBaseInputMedia(mediaType string, media RequestFileData) BaseInputMedia {
+	return BaseInputMedia{
+		Type:  mediaType,
+		Media: media,
+	}
+}
+
 // NewInputMediaPhoto creates a new InputMediaPhoto.
 func NewInputMediaPhoto(media RequestFileData) InputMediaPhoto {
 	return InputMediaPhoto{
@@ -561,6 +569,42 @@ func NewInlineQueryResultVenue(id, title, address string, latitude, longitude fl
 		Latitude:  latitude,
 		Longitude: longitude,
 	}
+}
+
+// NewEditMessageMedia allows you to edit the media content of a message.
+func NewEditMessageMedia(chatID int64, messageID int, inputMedia interface{}) EditMessageMediaConfig {
+	return EditMessageMediaConfig{
+		BaseEdit: BaseEdit{
+			ChatID:    chatID,
+			MessageID: messageID,
+		},
+		Media: inputMedia,
+	}
+}
+
+// NewEditMessagePhoto allows you to edit the photo content of a message.
+func NewEditMessagePhoto(chatID int64, messageID int, inputPhoto InputMediaPhoto) EditMessageMediaConfig {
+	return NewEditMessageMedia(chatID, messageID, inputPhoto)
+}
+
+// NewEditMessageVideo allows you to edit the video content of a message.
+func NewEditMessageVideo(chatID int64, messageID int, inputVideo InputMediaVideo) EditMessageMediaConfig {
+	return NewEditMessageMedia(chatID, messageID, inputVideo)
+}
+
+// NewEditMessageAnimation allows you to edit the animation content of a message.
+func NewEditMessageAnimation(chatID int64, messageID int, inputAnimation InputMediaAnimation) EditMessageMediaConfig {
+	return NewEditMessageMedia(chatID, messageID, inputAnimation)
+}
+
+// NewEditMessageAudio allows you to edit the audio content of a message.
+func NewEditMessageAudio(chatID int64, messageID int, inputAudio InputMediaAudio) EditMessageMediaConfig {
+	return NewEditMessageMedia(chatID, messageID, inputAudio)
+}
+
+// NewEditMessageDocument allows you to edit the document content of a message.
+func NewEditMessageDocument(chatID int64, messageID int, inputDocument InputMediaDocument) EditMessageMediaConfig {
+	return NewEditMessageMedia(chatID, messageID, inputDocument)
 }
 
 // NewEditMessageText allows you to edit the text of a message.
