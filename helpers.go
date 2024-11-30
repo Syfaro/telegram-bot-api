@@ -745,6 +745,15 @@ func NewInlineKeyboardMarkup(rows ...[]InlineKeyboardButton) InlineKeyboardMarku
 	}
 }
 
+// NewInlineKeyboardButtonCopyText creates an inline keyboard button with text
+// that copies a verification code or other specified text to the clipboard.
+func NewInlineKeyboardButtonCopyText(text string, copyText CopyTextButton) InlineKeyboardButton {
+	return InlineKeyboardButton{
+		Text:     text,
+		CopyText: &copyText,
+	}
+}
+
 // NewCallback creates a new callback message.
 func NewCallback(id, text string) CallbackConfig {
 	return CallbackConfig{
