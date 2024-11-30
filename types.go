@@ -1416,6 +1416,11 @@ type InlineKeyboardButton struct {
 	//
 	// optional
 	SwitchInlineQueryCurrentChat *string `json:"switch_inline_query_current_chat,omitempty"`
+	// CopyText represents an inline keyboard button that copies a verification code
+	// or other specified text to the clipboard.
+	//
+	// optional
+	CopyText *CopyTextButton `json:"copy_text,omitempty"`
 	// CallbackGame description of the game that will be launched when the user presses the button.
 	//
 	// optional
@@ -2112,6 +2117,11 @@ type GameHighScore struct {
 
 // CallbackGame is for starting a game in an inline keyboard button.
 type CallbackGame struct{}
+
+// CopyTextButton is for copy text in an inline keyboard button.
+type CopyTextButton struct {
+	Text string `json:"text"`
+}
 
 // WebhookInfo is information about a currently set webhook.
 type WebhookInfo struct {
