@@ -361,6 +361,10 @@ func (c Chat) ChatConfig() ChatConfig {
 type Message struct {
 	// MessageID is a unique message identifier inside this chat
 	MessageID int `json:"message_id"`
+	// TopicID is id of topic in which message was sent
+	//
+	// optional, supergroups only
+	TopicID int `json:"message_thread_id",omitempty`
 	// From is a sender, empty for messages sent to channels;
 	//
 	// optional
