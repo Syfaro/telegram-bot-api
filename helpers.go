@@ -14,10 +14,16 @@ import (
 // NewMessage creates a new Message.
 //
 // chatID is where to send it, text is the message text.
-func NewMessage(chatID int64, text string) MessageConfig {
+// topicID is additional parameter to specify topic of supergroup where message need to be sent.
+func NewMessage(chatID int64, text string, topicID ...int) MessageConfig {
+	threadID := 0
+	if len(topicID) > 0 {
+		threadID = topicID[0]
+	}
 	return MessageConfig{
 		BaseChat: BaseChat{
 			ChatID:           chatID,
+			TopicID:          threadID,
 			ReplyToMessageID: 0,
 		},
 		Text:                  text,
