@@ -51,6 +51,11 @@ type Update struct {
 	//
 	// optional
 	EditedMessage *Message `json:"edited_message,omitempty"`
+	// MessageReaction message indicating a user react event to a chat
+	// administrated by the bot
+	//
+	// optional
+	MessageReaction *Message `json:"message_reaction,omitempty"`
 	// ChannelPost new version of a message that is known to the bot and was
 	// edited
 	//
@@ -634,6 +639,14 @@ type Message struct {
 	//
 	// optional
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
+	// OldReaction is the previous list of reacts for this User and Message.
+	//
+	// optional
+	OldReaction *ReactionType `json:"old_reaction,omitempty"`
+	// NewReaction is the updated list of reacts for this User and Message.
+	//
+	// optional
+	NewReaction *ReactionType `json:"new_reaction,omitempty"`
 }
 
 // Time converts the message timestamp into a Time.
@@ -3327,4 +3340,13 @@ type PreCheckoutQuery struct {
 	//
 	// optional
 	OrderInfo *OrderInfo `json:"order_info,omitempty"`
+}
+
+type ReactionType struct {
+	// The type of reaction, can be on of 'emoji', 'custom_emoji', 'paid'
+	Type string `json:"type,omitempty"`
+	// If type is 'emoji', specifies its unicode
+	Emoji string `json:"emoji,omitempty"`
+	// If type is 'custom_emoji', specifies its unique ID
+	CustomEmojiID string `json:"custom_emoji_id,omitempty"`
 }
