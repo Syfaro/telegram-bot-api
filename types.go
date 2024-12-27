@@ -370,6 +370,10 @@ type Message struct {
 	//
 	// optional
 	From *User `json:"from,omitempty"`
+	// User is the subject of an atypical Update type, such as message_reaction;
+	//
+	// optional
+	User *User `json:"user,omitempty"`
 	// SenderChat is the sender of the message, sent on behalf of a chat. The
 	// channel itself for channel messages. The supergroup itself for messages
 	// from anonymous group administrators. The linked channel for messages
@@ -642,11 +646,11 @@ type Message struct {
 	// OldReaction is the previous list of reacts for this User and Message.
 	//
 	// optional
-	OldReaction *ReactionType `json:"old_reaction,omitempty"`
+	OldReaction []*ReactionType `json:"old_reaction,omitempty"`
 	// NewReaction is the updated list of reacts for this User and Message.
 	//
 	// optional
-	NewReaction *ReactionType `json:"new_reaction,omitempty"`
+	NewReaction []*ReactionType `json:"new_reaction,omitempty"`
 }
 
 // Time converts the message timestamp into a Time.
