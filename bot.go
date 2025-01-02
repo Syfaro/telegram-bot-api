@@ -343,6 +343,13 @@ func (bot *BotAPI) Send(c Chattable) (Message, error) {
 		return Message{}, err
 	}
 
+	switch c.(type) {
+	case *DeleteMessageConfig:
+		return Message{}, nil
+	default:
+		break
+	}
+
 	var message Message
 	err = json.Unmarshal(resp.Result, &message)
 
