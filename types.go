@@ -594,6 +594,11 @@ type Message struct {
 	//
 	// optional
 	SuccessfulPayment *SuccessfulPayment `json:"successful_payment,omitempty"`
+	// RefundedPayment is a service message about a refunded payment,
+	// information about the payment;
+	//
+	// optional
+	RefundedPayment *RefundedPayment `json:"refunded_payment,omitempty"`
 	// ConnectedWebsite is the domain name of the website on which the user has
 	// logged in;
 	//
@@ -3289,6 +3294,20 @@ type SuccessfulPayment struct {
 	ProviderPaymentChargeID string `json:"provider_payment_charge_id"`
 }
 
+// RefundedPayment This object contains basic information about a refunded payment.
+type RefundedPayment struct {
+	// Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”
+	Currency string `json:"currency"`
+	// Total refunded price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45, total_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	TotalAmount int `json:"total_amount"`
+	// Bot-specified invoice payload
+	InvoicePayload string `json:"invoice_payload"`
+	// Telegram payment identifier
+	TelegramPaymentChargeId string `json:"telegram_payment_charge_id"`
+	// Optional. Provider payment identifier
+	ProviderPaymentChargeId string `json:"provider_payment_charge_id"`
+}
+
 // ShippingQuery contains information about an incoming shipping query.
 type ShippingQuery struct {
 	// ID unique query identifier
@@ -3327,4 +3346,40 @@ type PreCheckoutQuery struct {
 	//
 	// optional
 	OrderInfo *OrderInfo `json:"order_info,omitempty"`
+}
+
+// PreparedInlineMessage describes an inline message to be sent by a user of a Mini App.
+type PreparedInlineMessage struct {
+	// Unique identifier of the prepared message
+	Id string `json:"id"`
+	// Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
+	ExpirationDate int64 `json:"expiration_date"`
+}
+
+// TransactionPartnerUser Describes a transaction with a user.
+type TransactionPartnerUser struct {
+	Type string `json:"type"`
+	User User   `json:"user"`
+}
+
+// StarTransaction Describes a Telegram Star transaction.
+type StarTransaction struct {
+	// Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with SuccessfulPayment.telegram_payment_charge_id for successful incoming payments from users.
+	Id string `json:"id"`
+	// Integer amount of Telegram Stars transferred by the transaction
+	Amount int64 `json:"amount"`
+	// Optional. The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999
+	NanostarAmount int64 `json:"nanostar_amount"`
+	// Date the transaction was created in Unix time
+	Date int64 `json:"date"`
+	// Optional. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions
+	Source interface{} `json:"source"`
+	// Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions
+	Receiver interface{} `json:"receiver"`
+}
+
+// StarTransactions Contains a list of Telegram Star transactions.
+type StarTransactions struct {
+	// The list of transactions
+	Transactions []StarTransaction `json:"transactions"`
 }

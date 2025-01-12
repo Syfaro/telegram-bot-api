@@ -405,10 +405,11 @@ func (config CopyMessageConfig) method() string {
 // PhotoConfig contains information about a SendPhoto request.
 type PhotoConfig struct {
 	BaseFile
-	Thumb           RequestFileData
-	Caption         string
-	ParseMode       string
-	CaptionEntities []MessageEntity
+	Thumb                 RequestFileData
+	Caption               string
+	ParseMode             string
+	CaptionEntities       []MessageEntity
+	ShowCaptionAboveMedia bool
 }
 
 func (config PhotoConfig) params() (Params, error) {
@@ -420,6 +421,7 @@ func (config PhotoConfig) params() (Params, error) {
 	params.AddNonEmpty("caption", config.Caption)
 	params.AddNonEmpty("parse_mode", config.ParseMode)
 	err = params.AddInterface("caption_entities", config.CaptionEntities)
+	params.AddBool("show_caption_above_media", config.ShowCaptionAboveMedia)
 
 	return params, err
 }
@@ -1784,6 +1786,65 @@ func (config InvoiceConfig) method() string {
 	return "sendInvoice"
 }
 
+// InvoiceLinkConfig contains information for createInvoiceLink request.
+type InvoiceLinkConfig struct {
+	Title                     string         // required
+	Description               string         // required
+	Payload                   string         // required
+	ProviderToken             string         // required
+	Currency                  string         // required
+	Prices                    []LabeledPrice // required
+	MaxTipAmount              int
+	SuggestedTipAmounts       []int
+	ProviderData              string
+	PhotoURL                  string
+	PhotoSize                 int
+	PhotoWidth                int
+	PhotoHeight               int
+	NeedName                  bool
+	NeedPhoneNumber           bool
+	NeedEmail                 bool
+	NeedShippingAddress       bool
+	SendPhoneNumberToProvider bool
+	SendEmailToProvider       bool
+	IsFlexible                bool
+}
+
+func (config InvoiceLinkConfig) params() (Params, error) {
+	params := make(Params)
+	var err error
+
+	params["title"] = config.Title
+	params["description"] = config.Description
+	params["payload"] = config.Payload
+	params["provider_token"] = config.ProviderToken
+	params["currency"] = config.Currency
+	if err = params.AddInterface("prices", config.Prices); err != nil {
+		return params, err
+	}
+
+	params.AddNonZero("max_tip_amount", config.MaxTipAmount)
+	err = params.AddInterface("suggested_tip_amounts", config.SuggestedTipAmounts)
+	params.AddNonEmpty("provider_data", config.ProviderData)
+	params.AddNonEmpty("photo_url", config.PhotoURL)
+	params.AddNonZero("photo_size", config.PhotoSize)
+	params.AddNonZero("photo_width", config.PhotoWidth)
+	params.AddNonZero("photo_height", config.PhotoHeight)
+	params.AddBool("need_name", config.NeedName)
+	params.AddBool("need_phone_number", config.NeedPhoneNumber)
+	params.AddBool("need_email", config.NeedEmail)
+	params.AddBool("need_shipping_address", config.NeedShippingAddress)
+	params.AddBool("is_flexible", config.IsFlexible)
+	params.AddBool("send_phone_number_to_provider", config.SendPhoneNumberToProvider)
+	params.AddBool("send_email_to_provider", config.SendEmailToProvider)
+
+	return params, err
+}
+
+func (config InvoiceLinkConfig) method() string {
+	return "createInvoiceLink"
+}
+
 // ShippingConfig contains information for answerShippingQuery request.
 type ShippingConfig struct {
 	ShippingQueryID string // required
@@ -2565,4 +2626,56 @@ func prepareInputMediaForFiles(inputMedia []interface{}) []RequestFile {
 	}
 
 	return files
+}
+
+type SavePreparedInlineMessageConfig struct {
+	UserId            int64
+	Result            interface{} // Too many definitions to use generics but please make sure it is InlineQueryResult. https://core.telegram.org/bots/api#inlinequeryresult
+	AllowUserChats    bool
+	AllowBotChats     bool
+	AllowGroupChats   bool
+	AllowChannelChats bool
+}
+
+func (config SavePreparedInlineMessageConfig) method() string {
+	return "savePreparedInlineMessage"
+}
+
+func (config SavePreparedInlineMessageConfig) params() (Params, error) {
+	params := make(Params)
+
+	params.AddNonZero64("user_id", config.UserId)
+	if err := params.AddInterface("result", config.Result); err != nil {
+		return nil, err
+	}
+	params.AddBool("allow_user_chats", config.AllowUserChats)
+	params.AddBool("allow_bot_chats", config.AllowBotChats)
+	params.AddBool("allow_group_chats", config.AllowGroupChats)
+	params.AddBool("allow_channel_chats", config.AllowChannelChats)
+
+	return params, nil
+}
+
+// GetStarTransactionsConfig Returns the bot's Telegram Star transactions in chronological order. On success, returns a StarTransactions object.
+type GetStarTransactionsConfig struct {
+	// Number of transactions to skip in the response
+	Offset int64
+	// The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+	Limit int64
+}
+
+func (config GetStarTransactionsConfig) method() string {
+	return "getStarTransactions"
+}
+
+func (config GetStarTransactionsConfig) params() (Params, error) {
+	params := make(Params)
+
+	err := params.AddInterface("offset", config.Offset)
+	if err != nil {
+		return nil, err
+	}
+	params.AddNonZero("limit", int(config.Limit))
+
+	return params, nil
 }

@@ -1,6 +1,7 @@
 package tgbotapi
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"testing"
@@ -8,7 +9,7 @@ import (
 )
 
 const (
-	TestToken               = "153667468:AAHlSHlMqSt1f_uFmVRJbm5gntu2HI4WW8I"
+	TestToken               = "6766212541:AAGQTAPSbZGQoJ-FmG-nyYZLPCQQCc5wFIw"
 	ChatID                  = 76918703
 	Channel                 = "@tgbotapitest"
 	SupergroupChatID        = -1001120141283
@@ -36,7 +37,6 @@ func (t testLogger) Printf(format string, v ...interface{}) {
 
 func getBot(t *testing.T) (*BotAPI, error) {
 	bot, err := NewBotAPI(TestToken)
-	bot.Debug = true
 
 	logger := testLogger{t}
 	SetLogger(logger)
@@ -44,6 +44,8 @@ func getBot(t *testing.T) (*BotAPI, error) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	bot.Debug = true
 
 	return bot, err
 }
@@ -1046,5 +1048,94 @@ func TestPrepareInputMediaForParams(t *testing.T) {
 
 	if prepared[1].(InputMediaVideo).Media != FileID("test") {
 		t.Error("Passthrough value was not the same")
+	}
+}
+
+func TestCreateInvoiceLink(t *testing.T) {
+	bot, err := getBot(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp, err := bot.Request(NewInvoiceLink("Demo Invoice", "This is a demo invoice link", "command", "", "XTR", []int{}, []LabeledPrice{
+		{
+			Label:  "Demo Digital Token",
+			Amount: 100,
+		},
+	}))
+
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !resp.Ok {
+		t.Fatal("Response not OK", resp.ErrorCode, resp.Description)
+	}
+	result, err := resp.Result.MarshalJSON()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(string(result))
+}
+
+func TestSendPhoto(t *testing.T) {
+	bot, err := getBot(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+	photo := NewPhoto(1632669575, FileURL("https://pub-4b4332e2985947ceacb0e1bdc9c540bd.r2.dev/novelcoronavirus-optimized.jpg"))
+	photo.Caption = "Welcome to Follow https://github.com/TUTUBIG"
+	photo.ShowCaptionAboveMedia = true
+	_, err = bot.Send(photo)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSaveInlineMessage(t *testing.T) {
+	bot, err := NewBotAPI(TestToken)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	photo := NewInlineQueryResultPhoto(fmt.Sprintf("%d", time.Now().Unix()), "https://pub-6c52100fa9ac41f681f0713eac878541.r2.dev/xxx.png")
+	photo.Caption = "This is a demo saved inline query messages"
+	photo.ParseMode = "HTML"
+	photo.ThumbURL = "https://pub-6c52100fa9ac41f681f0713eac878541.r2.dev/xxx.png"
+	markup := NewInlineKeyboardMarkup(NewInlineKeyboardRow(NewInlineKeyboardButtonURL("Open in TOMO", fmt.Sprintf("https://www.google.com"))))
+	photo.ReplyMarkup = &markup
+
+	message, err := bot.SavePreparedInlineMessage(SavePreparedInlineMessageConfig{
+		UserId:            1632669575,
+		Result:            photo,
+		AllowUserChats:    true,
+		AllowBotChats:     true,
+		AllowGroupChats:   true,
+		AllowChannelChats: true,
+	})
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(message)
+}
+
+func TestGetStarTransactions(t *testing.T) {
+	bot, err := getBot(t)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	response, err := bot.GetStarTransactions(GetStarTransactionsConfig{
+		Offset: 200,
+		Limit:  100,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, transaction := range response.Transactions {
+		if transaction.Receiver != nil {
+			t.Logf("%+v\n", transaction)
+		}
 	}
 }
